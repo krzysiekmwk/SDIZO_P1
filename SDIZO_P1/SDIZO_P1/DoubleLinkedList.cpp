@@ -20,7 +20,7 @@ int DoubleLinkedList::back() {
 	return tail->data;
 }
 
-void DoubleLinkedList::push_front(int data) {
+void DoubleLinkedList::pushFront(int data) {
 	ElemList * elem = new ElemList;
 	elem->data = data;
 	elem->prev = nullptr;
@@ -36,7 +36,7 @@ void DoubleLinkedList::push_front(int data) {
 	count++;
 }
 
-void DoubleLinkedList::push_back(int data) {
+void DoubleLinkedList::pushBack(int data) {
 	ElemList * elem = new ElemList;
 	elem->data = data;
 	elem->prev = tail;
@@ -52,10 +52,19 @@ void DoubleLinkedList::push_back(int data) {
 	count++;
 }
 
-void DoubleLinkedList::puchPosition(int data, int position) {
+void DoubleLinkedList::pushAtPosition(int data, int position) {
 	if (tail == nullptr)
-		push_front(data);
+		pushFront(data);
 	else {
+		if (position <= 0) {
+			pushBack(data);
+			return;
+		}
+		if (position >= count) {
+			pushFront(data);
+			return;
+		}
+			
 		int i = 0;
 		ElemList *tmp = tail; //Don't change the tail. 
 		while (tmp != nullptr) {
@@ -76,11 +85,35 @@ void DoubleLinkedList::puchPosition(int data, int position) {
 	}
 }
 
-void DoubleLinkedList::pop_front() {
+void DoubleLinkedList::popFront() {
+	if (count == 0)
+		return;
+	if (head->next != nullptr) {
+		ElemList * newHead = head->next;
+		newHead->prev = nullptr;
+		delete head;
+		head = newHead;
+	}
+	else{
+		delete head;
+		head = tail = nullptr;
+	}
 	count--;
 }
 
-void DoubleLinkedList::pop_back() {
+void DoubleLinkedList::popBack() {
+	if (count == 0)
+		return;
+	if (tail->prev != nullptr) {
+		ElemList * newTail = tail->prev;
+		newTail->next = nullptr;
+		delete tail;
+		tail = newTail;
+	}
+	else {
+		delete tail;
+		head = tail = nullptr;
+	}
 	count--;
 }
 
