@@ -6,29 +6,27 @@ using namespace std;
 
 void displayListFront(DoubleLinkedList list) {
 	for (int i = 0; i < list.size(); i++)
-		cout << list.at(i) << endl;
-}
+		cout << list.at(i) << ", ";
 
-void addElement(DoubleLinkedList *list) {
-	list->push_front(69);
+	cout << endl;
 }
-
 
 int main() {
 
 	DoubleLinkedList list;
-	//cout << list->front()->data << endl; //nullptr exeption
-	int x = 0;
-	cout << sizeof(int) << endl;
-	for (int i = 0; i < 10; i++)
-	{
-		//cout << x << ", ";
-		list.push_front(x);
-		x = x + 2;
-	}
+
+	list.pushFront(1);
+	list.pushFront(2);
+	list.pushFront(3);
 
 	displayListFront(list);
-	addElement(&list);
+
+	list.pushAtPosition(9,1); //should be 1,9,2,3
+
+	displayListFront(list);
+
+	list.popAtPosition(1); //should be 1,2,3
+
 	displayListFront(list);
 
 	int YYY;

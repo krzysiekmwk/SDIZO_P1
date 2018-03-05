@@ -117,6 +117,37 @@ void DoubleLinkedList::popBack() {
 	count--;
 }
 
+void DoubleLinkedList::popAtPosition(int position) {
+	if (count == 0)
+		return;
+	else {
+		if (position <= 0) {
+			popBack();
+			return;
+		}
+		if (position >= count) {
+			popFront();
+			return;
+		}
+
+		int i = 0;
+		ElemList *tmp = tail; //Don't change the tail. 
+		while (tmp != nullptr) {
+			if (i == position) {
+				ElemList * elem = tmp->prev;
+				elem->next = tmp->next;
+				tmp->next->prev = elem;
+				delete tmp;
+
+				count--;
+				break;
+			}
+			i++;
+			tmp = tmp->prev;
+		}
+	}
+}
+
 bool DoubleLinkedList::isEmpty() {
 	if (count == 0)
 		return true;
@@ -138,11 +169,4 @@ int DoubleLinkedList::at(int index) {
 		tmp = tmp->prev;
 	}
 	return 0;
-}
-
-ElemList * DoubleLinkedList::getHead() {
-	return head;
-}
-ElemList * DoubleLinkedList::getTail() {
-	return tail;
 }
