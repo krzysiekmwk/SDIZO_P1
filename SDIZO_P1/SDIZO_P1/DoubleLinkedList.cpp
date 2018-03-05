@@ -1,18 +1,38 @@
 #include "DoubleLinkedList.h"
 
+ElemList::ElemList() {
+	data = 0;
+	next = nullptr;
+	prev = nullptr;
+}
+
 DoubleLinkedList::DoubleLinkedList() {
+	head = nullptr;
+	tail = nullptr;
 	count = 0;
 }
 
-DoubleLinkedList * DoubleLinkedList::front() {
+ElemList * DoubleLinkedList::front() {
 	return head;
 }
 
-DoubleLinkedList * DoubleLinkedList::back() {
+ElemList * DoubleLinkedList::back() {
 	return tail;
 }
 
 void DoubleLinkedList::push_front(int data) {
+	ElemList * elem = new ElemList;
+	elem->data = data;
+	elem->prev = nullptr;
+	elem->next = head;
+
+	if (head != nullptr)
+		head->prev = elem;
+	else
+		tail = elem;
+
+	head = elem;
+
 	count++;
 }
 
