@@ -52,6 +52,30 @@ void DoubleLinkedList::push_back(int data) {
 	count++;
 }
 
+void DoubleLinkedList::puchPosition(int data, int position) {
+	if (tail == nullptr)
+		push_front(data);
+	else {
+		int i = 0;
+		ElemList *tmp = tail; //Don't change the tail. 
+		while (tmp != nullptr) {
+			if (i == position) {
+				ElemList * elem = new ElemList;
+				elem->data = data;
+				elem->next = tmp->next;
+				elem->prev = tmp;
+				tmp->next->prev = elem;
+				tmp->next = elem;
+
+				count++;
+				break;
+			}
+			i++;
+			tmp = tmp->prev;
+		}
+	}
+}
+
 void DoubleLinkedList::pop_front() {
 	count--;
 }
@@ -67,22 +91,18 @@ bool DoubleLinkedList::isEmpty() {
 		return false;
 }
 
-void DoubleLinkedList::insert(int data, int position) {
-
-}
-
 int DoubleLinkedList::size() {
 	return count;
 }
 
 int DoubleLinkedList::at(int index) {
 	int i = 0;
-	ElemList *tmp = head;
+	ElemList *tmp = tail; //Enumerate from beginig of List
 	while (tmp != nullptr){
 		if (i == index)
 			return tmp->data;
 		i++;
-		tmp = tmp->next;
+		tmp = tmp->prev;
 	}
 	return 0;
 }
