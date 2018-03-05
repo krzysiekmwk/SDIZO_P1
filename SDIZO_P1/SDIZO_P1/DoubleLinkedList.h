@@ -10,9 +10,8 @@ public:
 class DoubleLinkedList {
 public:
 	DoubleLinkedList();
-	~DoubleLinkedList();
-	ElemList * front();			//Returns reference to the first element in the list
-	ElemList * back();			//Returns reference to the last element in the list
+	int front();			//Returns the first element in the list
+	int back();			//Returns the last element in the list
 	void push_front(int data);				//Adds a new element ‘g’ at the beginning of the list
 	void push_back(int data);				//Adds a new element ‘g’ at the end of the list
 	void pop_front();						//Removes the first element of the list, and reduces size of the list by 1
@@ -20,6 +19,9 @@ public:
 	bool isEmpty();						//Returns whether the list is empty(1) or not(0)
 	void insert(int data, int position);	//Inserts new elements in the list before the element at a specified position
 	int size();							//Returns the number of elements in the list
+	int at(int index);
+	ElemList * getHead();
+	ElemList * getTail();
 
 private:
 	ElemList *head, *tail;
