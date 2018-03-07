@@ -9,7 +9,7 @@ ElemList::ElemList() {
 DoubleLinkedList::DoubleLinkedList() {
 	head = nullptr;
 	tail = nullptr;
-	count = 0;
+	amount = 0;
 }
 
 int DoubleLinkedList::front() {
@@ -33,7 +33,7 @@ void DoubleLinkedList::pushFront(int data) {
 
 	head = elem;
 
-	count++;
+	amount++;
 }
 
 void DoubleLinkedList::pushBack(int data) {
@@ -49,7 +49,7 @@ void DoubleLinkedList::pushBack(int data) {
 
 	tail = elem;
 
-	count++;
+	amount++;
 }
 
 void DoubleLinkedList::pushAtPosition(int data, int position) {
@@ -60,7 +60,7 @@ void DoubleLinkedList::pushAtPosition(int data, int position) {
 			pushBack(data);
 			return;
 		}
-		if (position >= count) {
+		if (position >= amount) {
 			pushFront(data);
 			return;
 		}
@@ -76,7 +76,7 @@ void DoubleLinkedList::pushAtPosition(int data, int position) {
 				tmp->next->prev = elem;
 				tmp->next = elem;
 
-				count++;
+				amount++;
 				break;
 			}
 			i++;
@@ -86,7 +86,7 @@ void DoubleLinkedList::pushAtPosition(int data, int position) {
 }
 
 void DoubleLinkedList::popFront() {
-	if (count == 0)
+	if (amount == 0)
 		return;
 	if (head->next != nullptr) {
 		ElemList * newHead = head->next;
@@ -98,11 +98,11 @@ void DoubleLinkedList::popFront() {
 		delete head;
 		head = tail = nullptr;
 	}
-	count--;
+	amount--;
 }
 
 void DoubleLinkedList::popBack() {
-	if (count == 0)
+	if (amount == 0)
 		return;
 	if (tail->prev != nullptr) {
 		ElemList * newTail = tail->prev;
@@ -114,18 +114,18 @@ void DoubleLinkedList::popBack() {
 		delete tail;
 		head = tail = nullptr;
 	}
-	count--;
+	amount--;
 }
 
 void DoubleLinkedList::popAtPosition(int position) {
-	if (count == 0)
+	if (amount == 0)
 		return;
 	else {
 		if (position <= 0) {
 			popBack();
 			return;
 		}
-		if (position >= count) {
+		if (position >= amount) {
 			popFront();
 			return;
 		}
@@ -139,7 +139,7 @@ void DoubleLinkedList::popAtPosition(int position) {
 				tmp->next->prev = elem;
 				delete tmp;
 
-				count--;
+				amount--;
 				break;
 			}
 			i++;
@@ -149,14 +149,14 @@ void DoubleLinkedList::popAtPosition(int position) {
 }
 
 bool DoubleLinkedList::isEmpty() {
-	if (count == 0)
+	if (amount == 0)
 		return true;
 	else
 		return false;
 }
 
 int DoubleLinkedList::size() {
-	return count;
+	return amount;
 }
 
 int DoubleLinkedList::at(int index) {
