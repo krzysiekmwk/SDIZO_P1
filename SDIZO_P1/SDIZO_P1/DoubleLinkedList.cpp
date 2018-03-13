@@ -170,3 +170,16 @@ int DoubleLinkedList::at(int index) {
 	}
 	return 0;
 }
+
+bool DoubleLinkedList::contains(int data) {
+	int i = 0;
+	ElemList *tmp = tail; //Enumerate from beginig of List
+	while (tmp != nullptr) {
+		if (tmp->data == data)
+			return true;
+		i++;
+		tmp = tmp->prev;
+	}
+
+	return false;
+}

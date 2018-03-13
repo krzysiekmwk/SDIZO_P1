@@ -21,6 +21,7 @@ public:
 	bool isEmpty();									//Returns whether the list is empty(1) or not(0)
 	int size();										//Returns the number of elements in the list
 	int at(int index);								//Returns element at a specified position
+	bool contains(int data);						//Returns true if list contain some data or false if it does not
 
 private:
 	ElemList *head, *tail;
