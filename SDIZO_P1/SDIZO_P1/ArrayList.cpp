@@ -137,3 +137,10 @@ int ArrayList::size() {
 int ArrayList::at(int index) {
 	return arrayList[index];
 }
+
+bool ArrayList::contains(int data) {
+	for (int i = 0; i < amount; i++)
+		if (arrayList[i] == data)
+			return true;
+	return false;
+}
