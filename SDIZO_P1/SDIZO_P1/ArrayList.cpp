@@ -5,11 +5,15 @@ ArrayList::ArrayList() {
 	arrayList = new int[0];
 }
 
-int ArrayList::front() {
+int ArrayList::front(){
+	if (amount == 0)
+		return -1;
 	return arrayList[amount - 1];
 }
 
 int ArrayList::back() {
+	if (amount == 0)
+		return -1;
 	return arrayList[0];
 }
 
@@ -50,76 +54,86 @@ void ArrayList::pushBack(int data) {
 }
 
 void ArrayList::pushAtPosition(int data, int position) {
-	int increasedAmount = amount + 1;
-	int * listCopy = new int[increasedAmount];
-	if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
+	if (position >= amount)
+		pushFront(data);
+	else {
+		int increasedAmount = amount + 1;
+		int * listCopy = new int[increasedAmount];
+		if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
 
-		for (int i = 0; i < position; i++) {
-			listCopy[i] = arrayList[i];
+			for (int i = 0; i < position; i++) {
+				listCopy[i] = arrayList[i];
+			}
+
+			listCopy[position] = data;
+
+			for (int i = position; i < increasedAmount; i++) {
+				listCopy[i + 1] = arrayList[i];
+			}
+
+			delete[] arrayList;
+			arrayList = listCopy;
+
+			amount++;
 		}
-
-		listCopy[position] = data;
-
-		for (int i = position; i < increasedAmount; i++) {
-			listCopy[i + 1] = arrayList[i];
-		}
-
-		delete[] arrayList;
-		arrayList = listCopy;
-
-		amount++;
 	}
 }
 
 void ArrayList::popFront() {
-	int decreasedAmount = amount - 1;
-	int * listCopy = new int[decreasedAmount];
-	if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
+	if (amount > 0) {
+		int decreasedAmount = amount - 1;
+		int * listCopy = new int[decreasedAmount];
+		if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
 
-		for (int i = 0; i < decreasedAmount; i++) {
-			listCopy[i] = arrayList[i];
+			for (int i = 0; i < decreasedAmount; i++) {
+				listCopy[i] = arrayList[i];
+			}
+
+			delete[] arrayList;
+			arrayList = listCopy;
+
+			amount--;
 		}
-
-		delete[] arrayList;
-		arrayList = listCopy;
-
-		amount--;
 	}
 }
 
 void ArrayList::popBack() {
-	int decreasedAmount = amount - 1;
-	int * listCopy = new int[decreasedAmount];
-	if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
+	if (amount > 0) {
+		int decreasedAmount = amount - 1;
+		int * listCopy = new int[decreasedAmount];
+		if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
 
-		for (int i = 0; i < decreasedAmount; i++) {
-			listCopy[i] = arrayList[i + 1];
+			for (int i = 0; i < decreasedAmount; i++) {
+				listCopy[i] = arrayList[i + 1];
+			}
+
+			delete[] arrayList;
+			arrayList = listCopy;
+
+			amount--;
 		}
-
-		delete[] arrayList;
-		arrayList = listCopy;
-
-		amount--;
 	}
 }
 
 void ArrayList::popAtPosition(int position) {
-	int decreasedAmount = amount - 1;
-	int * listCopy = new int[decreasedAmount];
-	if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
+	if (amount > 0 && position < amount) {
+		int decreasedAmount = amount - 1;
+		int * listCopy = new int[decreasedAmount];
+		if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
 
-		for (int i = 0; i < position; i++) {
-			listCopy[i] = arrayList[i];
+			for (int i = 0; i < position; i++) {
+				listCopy[i] = arrayList[i];
+			}
+
+			for (int i = position; i < decreasedAmount; i++) {
+				listCopy[i] = arrayList[i + 1];
+			}
+
+			delete[] arrayList;
+			arrayList = listCopy;
+
+			amount--;
 		}
-
-		for (int i = position; i < decreasedAmount; i++) {
-			listCopy[i] = arrayList[i + 1];
-		}
-
-		delete[] arrayList;
-		arrayList = listCopy;
-
-		amount--;
 	}
 }
 
@@ -135,6 +149,8 @@ int ArrayList::size() {
 }
 
 int ArrayList::at(int index) {
+	if (index >= amount)
+		return -1;
 	return arrayList[index];
 }
 
