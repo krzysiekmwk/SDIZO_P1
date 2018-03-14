@@ -98,45 +98,6 @@ void Heap::fixToDown(int data, int index) {
 	}
 }
 
-/*void Heap::fixToDown(int data, int index) {
-	//Sprawdzenie Lewego dziecka, a nastepnie prawego
-	int leftChildIndex = getLeftChildIndex(index);
-
-	while (leftChildIndex < amount) { // zamienienie miejscami i ponowne sprawdzenie z danego indeksu
-		if (arrayList[leftChildIndex] > data) {
-			int arr = arrayList[leftChildIndex];
-			int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
-			arrayList[index] = arrayList[leftChildIndex];
-			arrayList[leftChildIndex] = tmp;
-
-			index = leftChildIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
-			//fixToDown(data, index);	// ponowne wywolanie funkcji w celu sprawdzenia czy lewe dziecko elementu nie jest przypadkiemn mniejsze
-			leftChildIndex = getLeftChildIndex(index);
-		}
-		else {
-			break;
-		}
-	}
-	index = leftChildIndex;
-	// Prawy dzieciak
-	int rightChildIndex = getRightChildIndex(index);
-
-	while (arrayList[rightChildIndex] > data) { // zamienienie miejscami i ponowne sprawdzenie z danego indeksu
-		if (arrayList[rightChildIndex] > data) {
-			int arr = arrayList[rightChildIndex];
-			int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
-			arrayList[index] = arrayList[rightChildIndex];
-			arrayList[rightChildIndex] = tmp;
-
-			index = rightChildIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
-			//fixToDown(data, index);
-		}
-		else {
-			break;
-		}
-	}
-}*/
-
 int Heap::getParentIndex(int childIndex) {
 	return ((childIndex - 1) / 2);
 }
@@ -161,8 +122,81 @@ int *Heap::getArray() {
 	return arrayList;
 }
 
-bool Heap::contains(int data) {
-	//Zaczynamy od korzenia i schodzimy w dó³. Podobnie jak przy usuwaniu
-
-	return true;
+bool Heap::containsHelper(int index, int data, bool *found) {
+	if (index <= amount) {
+		if (arrayList[index - 1] == data) {
+			return true;
+		}
+		int arr = arrayList[getLeftChildIndex(index - 1)];
+		int lf = getLeftChildIndex(index - 1);
+		if (getLeftChildIndex(index - 1) <= amount) {
+			if (arrayList[getLeftChildIndex(index - 1)] == data)
+				*found = true;
+			if (arrayList[getLeftChildIndex(index - 1)] > data)
+				containsHelper(index * 2, data, found);
+		}
+		if (*found)
+			return true;
+		int arr2 = arrayList[getRightChildIndex(index - 1)];
+		int rf = getRightChildIndex(index - 1);
+		if (getRightChildIndex(index - 1) < amount) {
+			if (arrayList[getRightChildIndex(index - 1)] == data)
+				*found = true;
+			if (arrayList[getRightChildIndex(index - 1)] > data)
+				containsHelper(index * 2 + 1, data, found);
+		}
+		if (*found)
+			return true;
+	}
+	return false;
 }
+
+bool Heap::contains(int data) {
+	bool found = false;
+	return containsHelper(1, data, &found);
+}
+
+/*bool Heap::contains(int data) {
+	//Zaczynamy od korzenia i schodzimy w dó³. Podobnie jak przy usuwaniu
+	if (amount == 0)
+		return false;
+	if (arrayList[0] == data)
+		return true;
+
+	int parentIndex = 0;
+	int leftChildIndex = getLeftChildIndex(parentIndex);
+	int rightChildIndex = getRightChildIndex(parentIndex);
+	if (leftChildIndex >= amount)
+		return false;
+	if (rightChildIndex >= amount)
+		return false;
+
+	int nrObiegu = 0;
+	while (nrObiegu < amount) {
+		if (arrayList[leftChildIndex] == data) { // sprawdz dzieciaki lewe oraz prawe czy to nie sa poszukiwane dane
+			return true;
+		}
+		
+		if (arrayList[rightChildIndex] == data) {
+			return true;
+		}
+
+		if (arrayList[leftChildIndex] < data) { // Rozpoczecie poszukiwan od lewego
+			parentIndex = leftChildIndex;
+		}
+
+		if (arrayList[leftChildIndex] > data) { // Rozpoczecie poszukiwan od lewego
+			parentIndex = rightChildIndex;
+		}
+
+
+		leftChildIndex = getLeftChildIndex(parentIndex);
+		rightChildIndex = getRightChildIndex(parentIndex);
+		if (leftChildIndex >= amount)
+			return false;
+		if (rightChildIndex >= amount)
+			return false;
+	}
+
+	return false;
+}*/
