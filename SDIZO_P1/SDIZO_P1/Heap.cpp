@@ -7,51 +7,60 @@ Heap::Heap() {
 }
 
 void Heap::push(int data) {
-	int increasedAmount = amount + 1;
-	int * listCopy = new int[increasedAmount];
-	if (listCopy) {
-
-		for (int i = 0; i < increasedAmount; i++) {
-			listCopy[i] = arrayList[i];
-		}
-
-		listCopy[amount] = data;
-
-		delete[] arrayList;
-		arrayList = listCopy;
-
-		if(amount == 0)
-			arrayList[0] = data;
-		else {
-			int index = amount;
-			fixToUp(data, index);
-
-		}
-
+	if (amount == 0) {
+		arrayList = new int[1];
+		arrayList[0] = data;
 		amount++;
+	}
+	else {
 
+		int increasedAmount = amount + 1;
+		int * listCopy = new int[increasedAmount];
+		if (listCopy) {
+
+			for (int i = 0; i < amount; i++) {
+				listCopy[i] = arrayList[i];
+			}
+
+			listCopy[amount] = data;
+
+			delete[] arrayList;
+			arrayList = listCopy;
+
+			//if (amount == 0)
+				
+			//else {
+			//int index = amount;
+			fixToUp(data, amount);
+
+			//}
+
+			amount++;
+
+		}
 	}
 }
 
 
 void Heap::pop() {
-	arrayList[0] = arrayList[amount - 1];
+	if (amount > 0) {
+		arrayList[0] = arrayList[amount - 1];
 
-	int decreasedAmount = amount - 1;
-	int * listCopy = new int[decreasedAmount];
-	if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
+		int decreasedAmount = amount - 1;
+		int * listCopy = new int[decreasedAmount];
+		if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
 
-		for (int i = 0; i < decreasedAmount; i++) {
-			listCopy[i] = arrayList[i];
-		}
+			for (int i = 0; i < decreasedAmount; i++) {
+				listCopy[i] = arrayList[i];
+			}
 
-		delete[] arrayList;
-		arrayList = listCopy;
+			delete[] arrayList;
+			arrayList = listCopy;
 
-		amount--;
-
-		if (amount > 0) // Dla listy ktora nie jest pusta
+			amount--;
 			fixToDown(getRoot(), 0);
+
+		}
 	}
 }
 
@@ -72,25 +81,33 @@ void Heap::fixToDown(int data, int index) {
 	int leftChildIndex = getLeftChildIndex(index);
 	int rightChildIndex = getRightChildIndex(index);
 	while (leftChildIndex < amount){ // Lewy jeszcze mo¿e byæ, kiedy prawy wyjdzie poza zakres tablicy
-		if (arrayList[leftChildIndex] > data){
-			int arr = arrayList[leftChildIndex];
-			int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
-			arrayList[index] = arrayList[leftChildIndex];
-			arrayList[leftChildIndex] = tmp;
 
-			index = leftChildIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
-		}
-		else if (arrayList[rightChildIndex] > data) {
-			int arr = arrayList[rightChildIndex];
-			int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
-			arrayList[index] = arrayList[rightChildIndex];
-			arrayList[rightChildIndex] = tmp;
+		if (arrayList[leftChildIndex] > arrayList[rightChildIndex]) { // Jesli lewe dziecko jest wieksze od tego z prawej, to zamien z tym z lewej
+			if (arrayList[leftChildIndex] > data) {
+				int arr = arrayList[leftChildIndex];
+				int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
+				arrayList[index] = arrayList[leftChildIndex];
+				arrayList[leftChildIndex] = tmp;
 
-			index = rightChildIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
-										//fixToDown(data, index);
+				index = leftChildIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
+			}
+			else {
+				break;
+			}
 		}
 		else {
-			break;
+			if (arrayList[rightChildIndex] > data) {
+				int arr = arrayList[rightChildIndex];
+				int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
+				arrayList[index] = arrayList[rightChildIndex];
+				arrayList[rightChildIndex] = tmp;
+
+				index = rightChildIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
+											//fixToDown(data, index);
+			}
+			else {
+				break;
+			}
 		}
 
 		leftChildIndex = getLeftChildIndex(index);
