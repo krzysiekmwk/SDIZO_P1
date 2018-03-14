@@ -13,10 +13,14 @@ DoubleLinkedList::DoubleLinkedList() {
 }
 
 int DoubleLinkedList::front() {
+	if (amount == 0)
+		return -1;
 	return head->data;
 }
 
 int DoubleLinkedList::back() {
+	if (amount == 0)
+		return -1;
 	return tail->data;
 }
 
