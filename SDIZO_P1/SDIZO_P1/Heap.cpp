@@ -27,13 +27,7 @@ void Heap::push(int data) {
 			delete[] arrayList;
 			arrayList = listCopy;
 
-			//if (amount == 0)
-				
-			//else {
-			//int index = amount;
 			fixToUp(data, amount);
-
-			//}
 
 			amount++;
 
