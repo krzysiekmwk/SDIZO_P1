@@ -9,6 +9,7 @@ public:
 	int size();
 	bool contains(int data);
 	int *getArray();
+	void clear();
 
 private:
 	int getParentIndex(int childIndex);

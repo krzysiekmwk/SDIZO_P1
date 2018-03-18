@@ -167,47 +167,8 @@ bool Heap::contains(int data) {
 	return containsHelper(0, data, &found);
 }
 
-/*bool Heap::contains(int data) {
-	//Zaczynamy od korzenia i schodzimy w dó³. Podobnie jak przy usuwaniu
-	if (amount == 0)
-		return false;
-	if (arrayList[0] == data)
-		return true;
-
-	int parentIndex = 0;
-	int leftChildIndex = getLeftChildIndex(parentIndex);
-	int rightChildIndex = getRightChildIndex(parentIndex);
-	if (leftChildIndex >= amount)
-		return false;
-	if (rightChildIndex >= amount)
-		return false;
-
-	int nrObiegu = 0;
-	while (nrObiegu < amount) {
-		if (arrayList[leftChildIndex] == data) { // sprawdz dzieciaki lewe oraz prawe czy to nie sa poszukiwane dane
-			return true;
-		}
-		
-		if (arrayList[rightChildIndex] == data) {
-			return true;
-		}
-
-		if (arrayList[leftChildIndex] < data) { // Rozpoczecie poszukiwan od lewego
-			parentIndex = leftChildIndex;
-		}
-
-		if (arrayList[leftChildIndex] > data) { // Rozpoczecie poszukiwan od lewego
-			parentIndex = rightChildIndex;
-		}
-
-
-		leftChildIndex = getLeftChildIndex(parentIndex);
-		rightChildIndex = getRightChildIndex(parentIndex);
-		if (leftChildIndex >= amount)
-			return false;
-		if (rightChildIndex >= amount)
-			return false;
+void Heap::clear() {
+	while (amount > 0){
+		pop();
 	}
-
-	return false;
-}*/
+}

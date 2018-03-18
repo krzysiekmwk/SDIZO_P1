@@ -187,3 +187,9 @@ bool DoubleLinkedList::contains(int data) {
 
 	return false;
 }
+
+void DoubleLinkedList::clear() {
+	while (amount > 0) {
+		popFront();
+	}
+}

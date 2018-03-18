@@ -160,3 +160,9 @@ bool ArrayList::contains(int data) {
 			return true;
 	return false;
 }
+
+void ArrayList::clear() {
+	while (amount > 0) {
+		popFront();
+	}
+}
