@@ -138,8 +138,6 @@ bool Heap::containsHelper(int index, int data, bool *found) {
 		if (arrayList[index] == data) {
 			return true;
 		}
-		int arr = arrayList[getLeftChildIndex(index)];
-		int lf = getLeftChildIndex(index);
 		if (getLeftChildIndex(index) <= amount) {
 			if (arrayList[getLeftChildIndex(index)] == data)
 				*found = true;
@@ -148,8 +146,6 @@ bool Heap::containsHelper(int index, int data, bool *found) {
 		}
 		if (*found)
 			return true;
-		int arr2 = arrayList[getRightChildIndex(index)];
-		int rf = getRightChildIndex(index);
 		if (getRightChildIndex(index) < amount) {
 			if (arrayList[getRightChildIndex(index)] == data)
 				*found = true;
