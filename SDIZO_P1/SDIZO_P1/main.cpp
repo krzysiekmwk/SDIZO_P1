@@ -5,7 +5,6 @@
 #include <fstream>
 #include <conio.h>
 
-
 #include "DoubleLinkedList.h"
 #include "ArrayList.h"
 #include "Heap.h"
@@ -29,7 +28,7 @@ ArrayList arrayList;
 
 void displayListFront(DoubleLinkedList list);
 void displayListFront(ArrayList list);
-void displayHeap(string sp, string sn, int v);
+void displayHeap();
 
 void showAndChooseMainScreen();
 void showArrayListMenu();
@@ -42,13 +41,6 @@ void fillHeap(Heap *heap);
 
 
 int main() {
-	//Zmienne potrzebne do wyœwietlania kopca
-	cr = cl = cp = "  ";
-	cr[0] = 218; cr[1] = 196;
-	cl[0] = 192; cl[1] = 196;
-	cp[0] = 179;
-
-
 	system("cls");
 	cout << "Program testowy. Wpisz cokolwiek oraz powtwierdz eneterem by kontynuowac" << endl;
 	int x;
@@ -91,25 +83,22 @@ void displayListFront(ArrayList list) {
 }
 
 /*		WYSWIETLANIE KOPCA		*/
-void displayHeap(string sp, string sn, int v)
-{
-	int * arrayList = heap.getArray();
+void displayHeap() {
+	int indeks = 1;
+	int i = 0;
 
-	string s;
-
-	if (v < heap.size())
+	while (i < heap.size())
 	{
-		s = sp;
-		if (sn == cr) s[s.length() - 2] = ' ';
-		displayHeap(s + cp, cr, 2 * v + 2);
-
-		s = s.substr(0, sp.length() - 2);
-
-		cout << s << sn << arrayList[v] << endl;
-
-		s = sp;
-		if (sn == cl) s[s.length() - 2] = ' ';
-		displayHeap(s + cp, cl, 2 * v + 1);
+		for (int j = 0; j < indeks; j++) {
+			if (i < heap.size()) {
+				for (int k = 0; k < 40 / (indeks+1);k++)
+					cout << " ";
+				cout << heap.getArray()[i];
+			}
+			i++;
+		}
+		cout << endl;
+		indeks *= 2;
 	}
 }
 
@@ -558,8 +547,8 @@ void showHeapMenu() {
 			cout << "Kopiec: " << endl;
 
 			start = std::chrono::high_resolution_clock::now();
-			 
-			displayHeap("", "", 0);
+
+			displayHeap();
 
 			elapsed = std::chrono::high_resolution_clock::now() - start;
 			microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
