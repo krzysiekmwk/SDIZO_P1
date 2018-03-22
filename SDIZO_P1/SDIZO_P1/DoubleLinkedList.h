@@ -1,6 +1,6 @@
 #pragma once
 
-class ElemList {
+class ElemList {									//Helper class which have data and pointer for next and previous value
 public:
 	ElemList();
 	int data;
@@ -9,7 +9,8 @@ public:
 
 class DoubleLinkedList {
 public:
-	DoubleLinkedList();
+	DoubleLinkedList();								//Constructor
+	~DoubleLinkedList();							//Destructor
 	int front();									//Returns the first element in the list
 	int back();										//Returns the last element in the list
 	void pushFront(int data);						//Adds a new element 'data' at the beginning of the list
@@ -22,7 +23,7 @@ public:
 	int size();										//Returns the number of elements in the list
 	int at(int index);								//Returns element at a specified position
 	bool contains(int data);						//Returns true if list contain some data or false if it does not
-	void clear();
+	void clear();									//Clear all list
 
 private:
 	ElemList *head, *tail;
