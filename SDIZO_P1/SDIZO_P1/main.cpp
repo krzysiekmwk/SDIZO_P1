@@ -29,7 +29,7 @@ ArrayList arrayList;
 
 void displayListFront(DoubleLinkedList list);
 void displayListFront(ArrayList list);
-void displayHeap(string sp, string sn, int v);
+void displayHeap();
 
 void showAndChooseMainScreen();
 void showArrayListMenu();
@@ -48,6 +48,23 @@ int main() {
 	cl[0] = 192; cl[1] = 196;
 	cp[0] = 179;
 
+	for (int i = 0; i < 100000; i++) {
+		doubleLinkedList.pushFront(rand() % 9999);
+	}
+
+	for (int j = 0; j < 100; j++) {
+		int randN = rand() % 9999;
+		int randP = rand() % 99999;
+		start = std::chrono::high_resolution_clock::now();
+
+		doubleLinkedList.front();
+
+		elapsed = std::chrono::high_resolution_clock::now() - start;
+		microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+		cout << microseconds << endl;
+	}
+
+	system("PAUSE");
 
 	system("cls");
 	cout << "Program testowy. Wpisz cokolwiek oraz powtwierdz eneterem by kontynuowac" << endl;
@@ -91,25 +108,22 @@ void displayListFront(ArrayList list) {
 }
 
 /*		WYSWIETLANIE KOPCA		*/
-void displayHeap(string sp, string sn, int v)
-{
-	int * arrayList = heap.getArray();
+void displayHeap() {
+	int indeks = 1;
+	int i = 0;
 
-	string s;
-
-	if (v < heap.size())
+	while (i < heap.size())
 	{
-		s = sp;
-		if (sn == cr) s[s.length() - 2] = ' ';
-		displayHeap(s + cp, cr, 2 * v + 2);
-
-		s = s.substr(0, sp.length() - 2);
-
-		cout << s << sn << arrayList[v] << endl;
-
-		s = sp;
-		if (sn == cl) s[s.length() - 2] = ' ';
-		displayHeap(s + cp, cl, 2 * v + 1);
+		for (int j = 0; j < indeks; j++) {
+			if (i < heap.size()) {
+				for (int k = 0; k < 40 / (indeks+1);k++)
+					cout << " ";
+				cout << heap.getArray()[i];
+			}
+			i++;
+		}
+		cout << endl;
+		indeks *= 2;
 	}
 }
 
@@ -170,7 +184,7 @@ void showArrayListMenu() {
 		cout << "(8) Usun element na wybranej pozycji (pop_at)" << endl;
 		cout << "(9) Wyswietl wielkosc (size)" << endl;
 		cout << "(10) Czy zawiera dana? (contains)" << endl;
-		cout << "(11) Wyczysc strukture (usuwa element po elemencie, zeby byc pewnym ze zwolni cala pamiec)" << endl;
+		cout << "(11) Wyczysc strukture (od razu usuwa cala tablice z pamieci)" << endl;
 		cout << "(12) Zakoncz" << endl;
 
 		cin >> choose;
@@ -534,7 +548,7 @@ void showHeapMenu() {
 		cout << "(4) Usun element" << endl;
 		cout << "(5) Wyswietl wielkosc (size)" << endl;
 		cout << "(6) Czy zawiera dana? (contains)" << endl;
-		cout << "(7) Wyczysc strukture (usuwa element po elemencie, zeby byc pewnym ze zwolni cala pamiec)" << endl;
+		cout << "(7) Wyczysc strukture (od razu usuwa cala tablice z pamieci)" << endl;
 		cout << "(8) Zakoncz" << endl;
 
 		cin >> choose;
@@ -558,8 +572,8 @@ void showHeapMenu() {
 			cout << "Kopiec: " << endl;
 
 			start = std::chrono::high_resolution_clock::now();
-			 
-			displayHeap("", "", 0);
+
+			displayHeap();
 
 			elapsed = std::chrono::high_resolution_clock::now() - start;
 			microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();

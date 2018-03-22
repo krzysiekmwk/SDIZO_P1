@@ -6,6 +6,11 @@ Heap::Heap() {
 	arrayList = new int[0];
 }
 
+Heap::~Heap()
+{
+	delete[] arrayList;
+}
+
 void Heap::push(int data) {
 	if (amount == 0) {
 		arrayList = new int[1];
@@ -134,19 +139,19 @@ int *Heap::getArray() {
 }
 
 bool Heap::containsHelper(int index, int data, bool *found) {
-	if (index <= amount) {
+	if (index <= amount) {	//Check if index is lower or the same as amount XD
 		if (arrayList[index] == data) {
 			return true;
 		}
-		if (getLeftChildIndex(index) <= amount) {
+		if (getLeftChildIndex(index) <= amount) {				//First check all left children if there is the searched object
 			if (arrayList[getLeftChildIndex(index)] == data)
 				*found = true;
 			if (arrayList[getLeftChildIndex(index)] > data)
-				containsHelper(getLeftChildIndex(index), data, found);
+				containsHelper(getLeftChildIndex(index), data, found);	//If there is child please force try to find object
 		}
-		if (*found)
+		if (*found)			//If there is searched object return true for all recurensions
 			return true;
-		if (getRightChildIndex(index) < amount) {
+		if (getRightChildIndex(index) < amount) {		//Do the same things for right children
 			if (arrayList[getRightChildIndex(index)] == data)
 				*found = true;
 			if (arrayList[getRightChildIndex(index)] > data)
@@ -159,12 +164,12 @@ bool Heap::containsHelper(int index, int data, bool *found) {
 }
 
 bool Heap::contains(int data) {
-	bool found = false;
+	bool found = false;		//contains helper is a recurencial method so it needs to have data for check if it fouded element in heap
 	return containsHelper(0, data, &found);
 }
 
 void Heap::clear() {
-	while (amount > 0){
-		pop();
-	}
+	amount = 0;
+	delete[] arrayList;
+	arrayList = new int[0];
 }

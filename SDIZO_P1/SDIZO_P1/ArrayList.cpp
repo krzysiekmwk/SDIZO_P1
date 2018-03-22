@@ -5,6 +5,11 @@ ArrayList::ArrayList() {
 	arrayList = new int[0];
 }
 
+ArrayList::~ArrayList()
+{
+	delete[] arrayList;
+}
+
 int ArrayList::front(){
 	if (amount == 0)
 		return -1;
@@ -162,7 +167,8 @@ bool ArrayList::contains(int data) {
 }
 
 void ArrayList::clear() {
-	while (amount > 0) {
-		popFront();
-	}
+	amount = 0;
+	delete[] arrayList;
+	arrayList = new int[0];
+
 }

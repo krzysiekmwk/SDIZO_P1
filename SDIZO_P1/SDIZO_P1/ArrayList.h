@@ -2,7 +2,8 @@
 
 class ArrayList {
 public:
-	ArrayList();
+	ArrayList();									//Constructor
+	~ArrayList();									//Destructor
 	int front();									//Returns the first element in the list
 	int back();										//Returns the last element in the list
 	void pushFront(int data);						//Adds a new element 'data' at the beginning of the list
@@ -15,7 +16,7 @@ public:
 	int size();										//Returns the number of elements in the list
 	int at(int index);								//Returns element at a specified position
 	bool contains(int data);						//Returns true if list contain some data or false if it does not
-	void clear();
+	void clear();									//Clear all array
 
 private:
 	int amount;
