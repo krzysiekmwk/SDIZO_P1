@@ -5,7 +5,6 @@
 #include <fstream>
 #include <conio.h>
 
-
 #include "DoubleLinkedList.h"
 #include "ArrayList.h"
 #include "Heap.h"
@@ -42,30 +41,6 @@ void fillHeap(Heap *heap);
 
 
 int main() {
-	//Zmienne potrzebne do wyœwietlania kopca
-	cr = cl = cp = "  ";
-	cr[0] = 218; cr[1] = 196;
-	cl[0] = 192; cl[1] = 196;
-	cp[0] = 179;
-
-	for (int i = 0; i < 100000; i++) {
-		doubleLinkedList.pushFront(rand() % 9999);
-	}
-
-	for (int j = 0; j < 100; j++) {
-		int randN = rand() % 9999;
-		int randP = rand() % 99999;
-		start = std::chrono::high_resolution_clock::now();
-
-		doubleLinkedList.front();
-
-		elapsed = std::chrono::high_resolution_clock::now() - start;
-		microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
-		cout << microseconds << endl;
-	}
-
-	system("PAUSE");
-
 	system("cls");
 	cout << "Program testowy. Wpisz cokolwiek oraz powtwierdz eneterem by kontynuowac" << endl;
 	int x;
