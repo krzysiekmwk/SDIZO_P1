@@ -13,7 +13,7 @@ Heap::~Heap()
 
 void Heap::push(int data) {
 	if (amount == 0) {
-		arrayList = new int[1];
+		arrayList = new int[1];	// add first element as root
 		arrayList[0] = data;
 		amount++;
 	}
@@ -24,15 +24,15 @@ void Heap::push(int data) {
 		if (listCopy) {
 
 			for (int i = 0; i < amount; i++) {
-				listCopy[i] = arrayList[i];
+				listCopy[i] = arrayList[i];	// copy all elements
 			}
 
-			listCopy[amount] = data;
+			listCopy[amount] = data;	// insert new one as last element
 
 			delete[] arrayList;
 			arrayList = listCopy;
 
-			fixToUp(data, amount);
+			fixToUp(data, amount);	// Try to fix heap to up
 
 			amount++;
 
@@ -43,11 +43,11 @@ void Heap::push(int data) {
 
 void Heap::pop() {
 	if (amount > 0) {
-		arrayList[0] = arrayList[amount - 1];
+		arrayList[0] = arrayList[amount - 1];	// asign last leaf as root
 
 		int decreasedAmount = amount - 1;
 		int * listCopy = new int[decreasedAmount];
-		if (listCopy) {	// Jesli zostala przydzielona nowa pamiec, to rozpocznij kopiowanie
+		if (listCopy) {
 
 			for (int i = 0; i < decreasedAmount; i++) {
 				listCopy[i] = arrayList[i];
@@ -57,38 +57,35 @@ void Heap::pop() {
 			arrayList = listCopy;
 
 			amount--;
-			fixToDown(getRoot(), 0);
+			fixToDown(getRoot(), 0);	// try to fix to down heap for check all rules of heap
 
 		}
 	}
 }
 
 void Heap::fixToUp(int data, int index) {
-	//Nastêpuje sprawdzenie rodzica
+	//check for parent index
 	int parentIndex = getParentIndex(index);
-	if (arrayList[parentIndex] < data) {	// Sprawdzenie czy rodzic jest mniejszy niz wstawiany
-		int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
-		arrayList[index] = arrayList[parentIndex];
-		arrayList[parentIndex] = tmp;
+	if (arrayList[parentIndex] < data) {	// check if parent is smaller than insertet object
+		arrayList[index] = arrayList[parentIndex]; // if is smaller then change position actual data with its parent
+		arrayList[parentIndex] = data;
 
-		index = parentIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
-		fixToUp(data, index);	// ponowne wywolanie funkcji w celu sprawdzenia czy rodzic elementu nie jest przypadkiemn mniejszy
+		index = parentIndex;	// Assign new index (change actual top)
+		fixToUp(data, index);	// Again check if parent of actual data is smaller or not
 	}
 }
 
 void Heap::fixToDown(int data, int index) {
 	int leftChildIndex = getLeftChildIndex(index);
 	int rightChildIndex = getRightChildIndex(index);
-	while (leftChildIndex < amount){ // Lewy jeszcze mo¿e byæ, kiedy prawy wyjdzie poza zakres tablicy
+	while (leftChildIndex < amount){ // Left index can be smaller than amount when right child will be the same size as heap
 
-		if (arrayList[leftChildIndex] > arrayList[rightChildIndex]) { // Jesli lewe dziecko jest wieksze od tego z prawej, to zamien z tym z lewej
-			if (arrayList[leftChildIndex] > data) {
-				int arr = arrayList[leftChildIndex];
-				int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
+		if (arrayList[leftChildIndex] > arrayList[rightChildIndex]) { // if left child is bigger than right child
+			if (arrayList[leftChildIndex] > data) {	//if left child is bigger than data then repalce them
 				arrayList[index] = arrayList[leftChildIndex];
-				arrayList[leftChildIndex] = tmp;
+				arrayList[leftChildIndex] = data;
 
-				index = leftChildIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
+				index = leftChildIndex;
 			}
 			else {
 				break;
@@ -96,13 +93,10 @@ void Heap::fixToDown(int data, int index) {
 		}
 		else {
 			if (arrayList[rightChildIndex] > data) {
-				int arr = arrayList[rightChildIndex];
-				int tmp = data;	// Jesli jest mniejszy, to nastepuje zamienienie go miejscem z elementem z aktualnej pozycji
 				arrayList[index] = arrayList[rightChildIndex];
-				arrayList[rightChildIndex] = tmp;
+				arrayList[rightChildIndex] = data;
 
-				index = rightChildIndex;	// Przypisanie nowego indeksu (w tym miejscu element ma zmieniony wierzcholek)
-											//fixToDown(data, index);
+				index = rightChildIndex;
 			}
 			else {
 				break;
