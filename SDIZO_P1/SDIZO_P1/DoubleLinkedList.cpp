@@ -12,6 +12,11 @@ DoubleLinkedList::DoubleLinkedList() {
 	amount = 0;
 }
 
+DoubleLinkedList::~DoubleLinkedList()
+{
+	clear();
+}
+
 int DoubleLinkedList::front() {
 	if (amount == 0)
 		return -1;
