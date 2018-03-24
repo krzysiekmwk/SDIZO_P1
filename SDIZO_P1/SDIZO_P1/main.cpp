@@ -159,8 +159,9 @@ void showArrayListMenu() {
 		cout << "(8) Usun element na wybranej pozycji (pop_at)" << endl;
 		cout << "(9) Wyswietl wielkosc (size)" << endl;
 		cout << "(10) Czy zawiera dana? (contains)" << endl;
-		cout << "(11) Wyczysc strukture (od razu usuwa cala tablice z pamieci)" << endl;
-		cout << "(12) Zakoncz" << endl;
+		cout << "(11) Co jest na danej pozycji? (AT)" << endl;
+		cout << "(12) Wyczysc strukture (od razu usuwa cala tablice z pamieci)" << endl;
+		cout << "(13) Zakoncz" << endl;
 
 		cin >> choose;
 
@@ -298,7 +299,23 @@ void showArrayListMenu() {
 				cout << "Brak" << endl;
 			system("PAUSE");}
 			break;
-		case 11:
+		case 11: {
+			cout << "Pokaz dana z pozycji: " << endl;
+			cin >> data;
+
+			start = std::chrono::high_resolution_clock::now();
+
+			int element = arrayList.at(data);
+
+			elapsed = std::chrono::high_resolution_clock::now() - start;
+			microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+			cout << microseconds << "us" << endl;
+			cout << "Na pozycji: " << data << " jest: " << element << endl;
+
+			system("PAUSE");
+			}
+			break;
+		case 12:
 			cout << "Czyszczenie tablicy" << endl;
 
 			start = std::chrono::high_resolution_clock::now();
@@ -311,7 +328,7 @@ void showArrayListMenu() {
 
 			system("PAUSE");
 			break;
-		case 12:
+		case 13:
 			showMenu = false;
 			break;
 		default:
@@ -343,8 +360,9 @@ void showDoubleLinkedListMenu() {
 		cout << "(8) Usun element na wybranej pozycji (pop_at)" << endl;
 		cout << "(9) Wyswietl wielkosc (size)" << endl;
 		cout << "(10) Czy zawiera dana? (contains)" << endl;
-		cout << "(11) Wyczysc strukture (usuwa element po elemencie, zeby byc pewnym ze zwolni cala pamiec)" << endl;
-		cout << "(12) Zakoncz" << endl;
+		cout << "(11) Co jest na danej pozycji? (AT)" << endl;
+		cout << "(12) Wyczysc strukture (usuwa element po elemencie, zeby byc pewnym ze zwolni cala pamiec)" << endl;
+		cout << "(13) Zakoncz" << endl;
 
 		cin >> choose;
 
@@ -482,7 +500,23 @@ void showDoubleLinkedListMenu() {
 				cout << "Brak" << endl;
 			system("PAUSE");}
 				 break;
-		case 11:
+		case 11: {
+			cout << "Pokaz dana z pozycji: " << endl;
+			cin >> data;
+
+			start = std::chrono::high_resolution_clock::now();
+
+			int element = doubleLinkedList.at(data);
+
+			elapsed = std::chrono::high_resolution_clock::now() - start;
+			microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+			cout << microseconds << "us" << endl;
+			cout << "Na pozycji: " << data << " jest: " << element << endl;
+
+			system("PAUSE");
+			}
+			break;
+		case 12:
 			cout << "Czyszczenie listy" << endl;
 
 			start = std::chrono::high_resolution_clock::now();
@@ -495,7 +529,7 @@ void showDoubleLinkedListMenu() {
 
 			system("PAUSE");
 			break;
-		case 12:
+		case 13:
 			showMenu = false;
 			break;
 		default:
