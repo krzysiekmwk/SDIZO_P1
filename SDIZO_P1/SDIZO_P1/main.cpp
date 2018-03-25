@@ -67,17 +67,17 @@ int main() {
 }
 
 /*		WYSWIETLANIE LISTY DWUKIERUNKOWEJ		*/
-void displayListFront(DoubleLinkedList list) {
-	for (int i = 0; i < list.size(); i++)
-		cout << list.at(i) << ", ";
+void displayListFront(DoubleLinkedList *list) {
+	for (int i = 0; i < list->size(); i++)
+		cout << list->at(i) << ", ";
 
 	cout << endl;
 }
 
 /*		WYSWIETLANIE TABLICY		*/
-void displayListFront(ArrayList list) {
-	for (int i = 0; i < list.size(); i++)
-		cout << list.at(i) << ", ";
+void displayListFront(ArrayList *list) {
+	for (int i = 0; i < list->size(); i++)
+		cout << list->at(i) << ", ";
 
 	cout << endl;
 }
@@ -185,7 +185,7 @@ void showArrayListMenu() {
 
 			start = std::chrono::high_resolution_clock::now();
 
-			displayListFront(arrayList);
+			displayListFront(&arrayList);
 
 			elapsed = std::chrono::high_resolution_clock::now() - start;
 			microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
@@ -386,7 +386,7 @@ void showDoubleLinkedListMenu() {
 
 			start = std::chrono::high_resolution_clock::now();
 
-			displayListFront(doubleLinkedList);
+			displayListFront(&doubleLinkedList);
 
 			elapsed = std::chrono::high_resolution_clock::now() - start;
 			microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
@@ -545,7 +545,6 @@ void showHeapMenu() {
 	while (showMenu) {
 
 		int choose;
-		int position;
 		int data;
 
 		system("cls");
